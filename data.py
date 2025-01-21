@@ -9,6 +9,7 @@ class Urls:
     LOGIN_COURIER = '/api/v1/courier/login'
     DELETE_COURIER = '/api/v1/courier/'
     ORDERS = '/api/v1/orders'
+    CANCEL_ORDER = '/api/v1/orders/cancel'
 
 
 class RandomString:
@@ -35,3 +36,49 @@ class RandomString:
         }
 
         return data
+
+
+class Responses:
+    NEW_COURIER_CREATE = {'ok': True}
+    COURIER_CREATE_WITH_SAME_NAME = 'Этот логин уже используется'
+    NEW_COURIER_ERROR_IN_DATA = 'Недостаточно данных для создания учетной записи'
+    COURIER_NOT_FOUND = 'Учетная запись не найдена'
+    COURIER_AUTH_ERROR_IN_DATA = 'Недостаточно данных для входа'
+
+    ORDER_EXAMPLES = [({"first_name": "Заказ",
+                                      "last_name": "Тестовый",
+                                      "address": "Москва",
+                                      "station": "4",
+                                      "phone": "+7 800 355 35 35",
+                                      "rent_time": "5",
+                                      "date": "2025-06-06",
+                                      "comment": "тестовое создание заказа",
+                                      "color": ["BLACK"]}),
+                                    ({"first_name": "Заказ",
+                                      "last_name": "Тестовый",
+                                      "address": "Москва",
+                                      "station": "4",
+                                      "phone": "+7 800 355 35 35",
+                                      "rent_time": "5",
+                                      "date": "2025-06-06",
+                                      "comment": "тестовое создание заказа",
+                                      "color": ["GREY"]}),
+                                     ({"first_name": "Заказ",
+                                       "last_name": "Тестовый",
+                                       "address": "Москва",
+                                       "station": "4",
+                                       "phone": "+7 800 355 35 35",
+                                       "rent_time": "5",
+                                       "date": "2025-06-06",
+                                       "comment": "тестовое создание заказа",
+                                       "color": ["BLACK", "GREY"]}),
+                                     ({"first_name": "Заказ",
+                                       "last_name": "Тестовый",
+                                       "address": "Москва",
+                                       "station": "4",
+                                       "phone": "+7 800 355 35 35",
+                                       "rent_time": "5",
+                                       "date": "2025-06-06",
+                                       "comment": "тестовое создание заказа",
+                                       "color": []})
+                                     ]

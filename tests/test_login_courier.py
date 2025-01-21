@@ -1,6 +1,6 @@
 import allure
 
-from data import RandomString
+from data import RandomString, Responses
 
 
 class TestLoginCouriers:
@@ -17,7 +17,7 @@ class TestLoginCouriers:
         login_pass = RandomString.login_pass()
         courier.create_courier(login_pass["login"], login_pass["password"], login_pass["firstName"])
         login_courier = courier.login_courier(login_pass["login"]+"1", login_pass["password"])
-        assert login_courier["status_code"] == 404 and login_courier["response"]["message"] == "Учетная запись не найдена"
+        assert login_courier["status_code"] == 404 and login_courier["response"]["message"] == Responses.COURIER_NOT_FOUND
         login_courier = courier.login_courier(login_pass["login"], login_pass["password"])
         courier.delete_courier(login_courier["response"]["id"])
 
@@ -26,7 +26,7 @@ class TestLoginCouriers:
         login_pass = RandomString.login_pass()
         courier.create_courier(login_pass["login"], login_pass["password"], login_pass["firstName"])
         login_courier = courier.login_courier(login_pass["login"], login_pass["password"]+"1")
-        assert login_courier["status_code"] == 404 and login_courier["response"]["message"] == "Учетная запись не найдена"
+        assert login_courier["status_code"] == 404 and login_courier["response"]["message"] == Responses.COURIER_NOT_FOUND
         login_courier = courier.login_courier(login_pass["login"], login_pass["password"])
         courier.delete_courier(login_courier["response"]["id"])
 
@@ -35,7 +35,7 @@ class TestLoginCouriers:
         login_pass = RandomString.login_pass()
         courier.create_courier(login_pass["login"], login_pass["password"], login_pass["firstName"])
         login_courier = courier.login_courier("", login_pass["password"])
-        assert login_courier["status_code"] == 400 and login_courier["response"]["message"] == "Недостаточно данных для входа"
+        assert login_courier["status_code"] == 400 and login_courier["response"]["message"] == Responses.COURIER_AUTH_ERROR_IN_DATA
         login_courier = courier.login_courier(login_pass["login"], login_pass["password"])
         courier.delete_courier(login_courier["response"]["id"])
 
@@ -44,6 +44,6 @@ class TestLoginCouriers:
         login_pass = RandomString.login_pass()
         courier.create_courier(login_pass["login"], login_pass["password"], login_pass["firstName"])
         login_courier = courier.login_courier(login_pass["login"], "")
-        assert login_courier["status_code"] == 400 and login_courier["response"]["message"] == "Недостаточно данных для входа"
+        assert login_courier["status_code"] == 400 and login_courier["response"]["message"] == Responses.COURIER_AUTH_ERROR_IN_DATA
         login_courier = courier.login_courier(login_pass["login"], login_pass["password"])
         courier.delete_courier(login_courier["response"]["id"])

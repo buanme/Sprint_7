@@ -1,5 +1,6 @@
 import json
 
+import allure
 import requests
 
 from data import Urls
@@ -7,7 +8,7 @@ from data import Urls
 
 class Orders:
 
-    # метод создания заказа
+    @allure.step("Метод создания заказа")
     def create_order(self, data):
         # собираем тело запроса
         payload = {
@@ -30,7 +31,7 @@ class Orders:
         # возвращаем список
         return order
 
-    # получение списка заказов
+    @allure.step("Метод получения списка заказов")
     def get_list_orders(self):
         response = requests.get(f'{Urls.BASE_URL}{Urls.ORDERS}')
         orders = {
@@ -39,4 +40,11 @@ class Orders:
         }
         return orders
 
-
+    @allure.step("Метод отмены заказа")
+    def put_cancel_order(self, track):
+        response = requests.put(f'{Urls.BASE_URL}{Urls.CANCEL_ORDER}?track={track}')
+        order = {
+            "status_code": response.status_code,
+            "response": response.json()
+        }
+        return order
